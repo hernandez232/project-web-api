@@ -1,0 +1,23 @@
+version: "3"
+services: 
+  api:
+    depends_on:
+    - db 
+    build: . 
+    command: "npm run start:dev"
+    ports: 
+      - "3000:5000"
+    volumes:
+      - .:/app
+  db:
+    container_name: pets-api
+    expose: 
+      - 27017
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: pets-db
